@@ -1,0 +1,57 @@
+http://blog.csdn.net/wyansai/article/details/51052177
+
+CWindowWnd中有win32封装的类似MFC的一些方法
+比较常用的如下：
+[cpp] view plain copy print?
+HWND GetHWND() const;  
+operator HWND() const;  
+  
+bool RegisterWindowClass();  
+bool RegisterSuperclass();  
+  
+HWND Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, const RECT rc, HMENU hMenu = NULL);  
+HWND Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, int x = CW_USEDEFAULT, int y = CW_USEDEFAULT, int cx = CW_USEDEFAULT, int cy = CW_USEDEFAULT, HMENU hMenu = NULL);  
+HWND CreateDuiWindow(HWND hwndParent, LPCTSTR pstrWindowName,DWORD dwStyle =0, DWORD dwExStyle =0);  
+HWND Subclass(HWND hWnd);  
+void Unsubclass();  
+void ShowWindow(bool bShow = true, bool bTakeFocus = true);  
+UINT ShowModal();  
+void Close(UINT nRet = IDOK);  
+void CenterWindow();    // 居中，支持扩展屏幕  
+void SetIcon(UINT nRes);  
+
+一、GetHWND
+[cpp] view plain copy print?
+HWND GetHWND() const;  
+
+获取当前窗口的句柄
+二、ShowWindow
+[cpp] view plain copy print?
+void ShowWindow(bool bShow = true, bool bTakeFocus = true);  
+其实是调用了win32的api函数
+[cpp] view plain copy print?
+::ShowWindow(m_hWnd, bShow ? (bTakeFocus ? SW_SHOWNORMAL : SW_SHOWNOACTIVATE) : SW_HIDE);  
+来显示 或 隐藏窗口
+三、ShowModal
+[cpp] view plain copy print?
+UINT ShowModal();  
+源码中，封装了消息处理函数。
+首先禁用了父窗口，显示本窗口，开始消息循环。
+如果遇到WM_CLOSE消息时，激活父窗口，把焦点从本窗口移到父窗口。（我也不知道父窗口是谁，呵呵）
+当遇到WM_QUIT时，彻底退出程序。
+四、Close
+[cpp] view plain copy print?
+void Close(UINT nRet = IDOK);  
+向本窗口发送WM_CLOSE消息。
+五、CenterWindow
+[cpp] view plain copy print?
+void CenterWindow();    // 居中，支持扩展屏幕  
+计算坐标以后，调用系统SetWindowPos函数，使窗口居中显示
+六、SetIcon
+[cpp] view plain copy print?
+void SetIcon(UINT nRes);  
+对进程发送了WM_SETICON这个消息，分2次设置图标和小图标
+七、ResizeClient
+[cpp] view plain copy print?
+void ResizeClient(int cx = -1, int cy = -1);  
+重新设置窗口尺寸大小，宽和高
