@@ -1,0 +1,12 @@
+LPCTSTR 
+LPCTSTR用来表示你的字符是否使用UNICODE, 如果你的程序定义了UNICODE或者其他相关的宏，
+那么这个字符或者字符串将被作为UNICODE字符串，否则就是标准的ANSI字符串。
+
+L表示long指针 这是为了兼容Windows 3.1等16位操作系统遗留下来的，在win32中以及其他的32位操作系统中， long指针和near指针及far修饰符都是为了兼容的作用。没有实际意义。
+P表示这是一个指针
+C表示是一个常量
+T表示在Win32环境中， 有一个_T宏
+STR表示这个变量是一个字符串
+
+ansi情况下，LPCTSTR 就是 const char*, 是常量字符串（不能修改的）。
+而LPTSTR 就是 char*, 即普通字符串（非常量，可修改的）。
