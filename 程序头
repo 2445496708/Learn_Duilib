@@ -1,0 +1,12 @@
+#define _CRT_SECURE_NO_DEPRECATE  //关闭C4996警告
+#define WIN32_LEAN_AND_MEAN       //指示编译器不要包含与MFC相关的操作  
+
+#include <windows.h>
+WINDOWS.H是一个最重要的头文件，它包含了其他Windows头文件，这些头文件的某些也包含了其他头文件。这些头文件中最重要的和最基本的是：
+WINDEF.H 基本数据类型定义。
+WINNT.H 支持Unicode的类型定义。
+WINBASE.H Kernel(内核)函数。
+WINUSER.H 用户界面函数。
+WINGDI.H 图形设备接口函数。
+这些头文件定义了Windows的所有资料型态、函数调用、资料结构和常数识别字，它们是Windows文件中的一个重要部分。
+
