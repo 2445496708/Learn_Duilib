@@ -1,18 +1,16 @@
 http://blog.csdn.net/wyansai/article/details/51052441
 
 一、Init
-[cpp] view plain copy print?
 void Init(HWND hWnd, LPCTSTR pstrName = NULL);  
 初始化界面元素，清除所有的图片、字体、……总之就是一切恢复到原始状态了
 
 二、Invalidate
-[cpp] view plain copy print?
 void Invalidate();  
-   void Invalidate(RECT& rcItem);  
+void Invalidate(RECT& rcItem);  
 刷新界面，刷新某个区域
+
 三、pos与size
 关于界面位置与尺寸
-[cpp] view plain copy print?
 POINT GetMousePos() const;  
 SIZE GetClientSize() const;  
 SIZE GetInitSize();  
@@ -30,7 +28,6 @@ void SetMaxInfo(int cx, int cy);
 
 四、Font
 关于字体
-[cpp] view plain copy print?
    TFontInfo* GetDefaultFontInfo();  
    void SetDefaultFont(LPCTSTR pStrFontName, int nSize, bool bBold, bool bUnderline, bool bItalic, bool bShared = false);  
    DWORD GetCustomFontCount(bool bShared = false) const;  
@@ -47,7 +44,6 @@ int GetFontIndex(LPCTSTR pStrFontName, int nSize, bool bBold, bool bUnderline, b
 
 五、Image
 关于图片
-[cpp] view plain copy print?
    const TImageInfo* GetImage(LPCTSTR bitmap);  
    const TImageInfo* GetImageEx(LPCTSTR bitmap, LPCTSTR type = NULL, DWORD mask = 0, bool bUseHSL = false);  
    const TImageInfo* AddImage(LPCTSTR bitmap, LPCTSTR type = NULL, DWORD mask = 0, bool bUseHSL = false, bool bShared = false);  
@@ -58,20 +54,17 @@ static void ReloadSharedImages();
 void ReloadImages();  
 
 六、控件焦点Focus
-[cpp] view plain copy print?
 CControlUI* GetFocus() const;  
 void SetFocus(CControlUI* pControl, bool bFocusWnd=true);  
 void SetFocusNeeded(CControlUI* pControl);  
 
 七、定时器Timer
-[cpp] view plain copy print?
 bool SetTimer(CControlUI* pControl, UINT nTimerID, UINT uElapse);  
 bool KillTimer(CControlUI* pControl, UINT nTimerID);  
 void KillTimer(CControlUI* pControl);  
 void RemoveAllTimers();  
 
 八、获取控件
-[cpp] view plain copy print?
 CControlUI* GetRoot() const;  
 CControlUI* FindControl(POINT pt) const;  
 CControlUI* FindControl(LPCTSTR pstrName) const;  
@@ -81,14 +74,12 @@ CControlUI* FindSubControlByClass(CControlUI* pParent, LPCTSTR pstrClass, int iI
 CDuiPtrArray* FindSubControlsByClass(CControlUI* pParent, LPCTSTR pstrClass);  
 
 九、操作子控件
-[cpp] view plain copy print?
    bool AttachDialog(CControlUI* pControl);  
    bool InitControls(CControlUI* pControl, CControlUI* pParent = NULL);  
 bool RenameControl(CControlUI* pControl, LPCTSTR pstrName);  
    void ReapObjects(CControlUI* pControl);  
 
 十、进程、路径、资源
-[cpp] view plain copy print?
    static HINSTANCE GetInstance();  
    static CDuiString GetInstancePath();  
    static CDuiString GetCurrentPath();  
