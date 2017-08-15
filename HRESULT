@@ -39,3 +39,12 @@ HRESULT CoInitialize(
 _In_opt_ LPVOID pvReserved
 );
 参数被保留，且必须为NULL。
+
+CoUninitialize关闭当前线程的COM库,卸载线程加载的所有dll,释放任何其他的资源,关闭在线程上维护所有的RPC连接。
+void CoUninitialize();
+备注:
+一个线程必须调用 CoUninitialize 一次在每次成功调用CoInitialize或CoInitializeEx。只有CoUninitialize对应于CoInitialize调用对应CoInitialize或CoInitializeEx调用他们初始化库能关闭它。
+调用OleInitialize必须通过调用OleUninitialize平衡。OleUninitialize 函数调用的OleUninitialize内部,所以应用程序调用OleUninitialize不也需要调用CoUninitialize。
+CoUninitialize应该在应用程序关闭后调用,作为最后一次调用COM库在应用程序主窗户隐藏,消息循环结束之后。如果有剩余的对话开着，CoUninitialize开始了模态消息循环和派发任何挂起的消息在容器或服务器里对于这个COM应用程序。通过派发信息,CoUninitialize 在确保应用程序等待所有它的消息接收之前不退出。Non-COM信息被丢弃。
+因为没有办法控制顺序进程内服务器加载或卸载, 从DllMain函数中调用CoInitialize, CoInitializeEx,或者 CoUninitialize 是不安全的。
+
