@@ -1,0 +1,59 @@
+WinMain 
+WinMain是一个函数，该函数的功能是被系统调用，作为一个32位应用程序的入口点。WinMain函数应初始化应用程序，显示主窗口，进入一个消息接收一发送循环，这个循环是应用程序执行的其余部分的顶级控制结构。
+
+//使用Ansi字符
+ 
+int _stdcall WinMain(
+    HINSTANCE hInstance,
+    HINSTANCE hPrevInstance,
+    LPSTR lpCmdLine,
+    int nCmdShow
+)
+ 
+//使用UNICODE字符
+ 
+int _stdcall _tWinMain(
+    HINSTANCE hInstance,
+    HINSTANCE hPrevInstance,
+    LPTSTR lpCmdLine,
+    int nCmdShow
+)
+ 
+//可写为
+ 
+int APIENTRY WinMain...
+ 
+int WINAPI WinMain...
+ 
+int CALLBACK WinMain...
+ 
+//因为 （在minwindef.h中）
+ 
+#define CALLBACK    __stdcall
+ 
+#define WINAPI      __stdcall
+ 
+#define APIENTRY    WINAPI
+hinstance：应用程序当前实例的句柄。
+
+hPrevlnstance：应用程序的先前实例的句柄。对于同一个程序打开两次，出现两个窗口第一次打开的窗口就是先前实例的窗口。对于一个32位程序，该参数总为NULL。
+如果需要检测另外一个实例是否已经存在，则使用CreateMutex函数创建一个独一无二的名字。即使互斥名已经存在，CreateMutex函数也是成功的，
+但是GetLastError函数将返回 ERROR_ALREADY_EXISTS，这就表明应用程序有另外一个实例存在，因为它首先创建了互斥名。
+
+lpCmdLine：指向应用程序命令行的字符串的指针，不包括执行文件名。获得整个命令行，参看GetCommandLine。
+第三个参数lpCmdLine是一个以空终止的字符串，指定传递给应用程序的命令行参数。例如：在D盘下有一个sunxin.txt文件，
+当我们用鼠标双击这个文件时将启动记事本程序（notepad.exe），此时系统会将D:\sunxin.txt作为命令行参数传递给记事本程序的WinMain函数，
+记事本程序在得到这个文件的全路径名后，就在窗口中显示该文件的内容。要在VC++开发环境中向应用程序传递参数，可以单击菜单【Project】→【Settings】，
+选择“Debug”选项卡，在“Program arguments”编辑框中输入你想传递给应用程序的参数。
+
+nCmdShow：指明窗口如何显示。该参数可以是下列值之一：
+SW_HIDE：隐藏窗口并且激活另外一个窗口。
+SW_MINIMIZE：最小化指定的窗口，并且激活在系统表中的顶层窗口。
+SW_RESTORE：激活并显示窗口。如果窗口已经最小化或最大化，系统将以恢复到原来的尺寸和位置显示窗口（与SW_SHOWNORMAL相同）。
+SW_SHOW：激活一个窗口并以原来的尺寸和位置显示窗口。
+SW_SHOWMAXIMIZED：激活窗口并且将其最大化。
+SW_SHOWMINIMIZED：激活窗口并将其最小化（以图标显示）。
+SW_SHOWMINNOACTIVE：将一个窗口显示为图标。激活窗口维持活动状态。
+SW_SHOWNA：以窗口的当前状态显示窗口。激活窗口保持活动状态。
+SW_SHOWNOACTIVATE：以窗口的最近一次的尺寸和位置显示窗口。不激活窗口。
+SW_SHOWNORMAL：激活并显示窗口。如果窗口最大化或最小化，系统将其恢复到原来的尺寸和位置（与SW_RESTORE相同）。
