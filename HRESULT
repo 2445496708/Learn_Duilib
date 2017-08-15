@@ -24,8 +24,18 @@ E_ACCESSDENIED 一般的访问被拒绝错误 0x80070005
 
 不能简单地把返回值与 S_OK 和 S_FAIL 比较，而要用 SUCCEEDED 和 FAILED 宏进行判断。
 
-HRESULT 其实是一个32位的值，其最高位(bit)如果是0表示成功，1表示错误。具体参见 MSDN 之"Structure of COM Error Codes"说明。我们在程序中如果需要判断返回值，则可以使用比较运算符号；switch开关语句；也可以使用VC提供的宏： HRESULT hr = 调用组件函数;
+HRESULT 其实是一个32位的值，其最高位(bit)如果是0表示成功，1表示错误。具体参见 MSDN 之"Structure of COM Error Codes"说明。
+我们在程序中如果需要判断返回值，则可以使用比较运算符号；switch开关语句；也可以使用VC提供的宏： HRESULT hr = 调用组件函数;
 if( SUCCEEDED( hr ) ){...} // 如果成功
 ......
 if( FAILED( hr ) ){...} // 如果失败
 ......
+
+
+CoInitialize是Windows提供的API函数，用来告诉 Windows以单线程的方式创建com对象。应用程序调用com库函数（除CoGetMalloc和内存分配函数）
+之前必须初始化com库。
+
+HRESULT CoInitialize(
+_In_opt_ LPVOID pvReserved
+);
+参数被保留，且必须为NULL。
